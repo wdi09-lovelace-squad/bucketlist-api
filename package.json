@@ -1,6 +1,6 @@
 {
   "name": "bucketlist-api",
-  "version": "0.0.0",
+  "version": "1.1.2",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
@@ -13,5 +13,18 @@
     "hbs": "~3.1.0",
     "morgan": "~1.6.1",
     "serve-favicon": "~2.3.0"
-  }
+  },
+  "description": "## Back End Repo",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wdi09-lovelace-squad/bucketlist-api.git"
+  },
+  "author": "faetea",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wdi09-lovelace-squad/bucketlist-api/issues"
+  },
+  "homepage": "https://github.com/wdi09-lovelace-squad/bucketlist-api#readme"
 }
