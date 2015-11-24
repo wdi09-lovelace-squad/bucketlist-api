@@ -1,6 +1,7 @@
 'use strict';
 
 var express = require('express');
+var path = require('path');
 var logger = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
@@ -15,11 +16,13 @@ var users = require('./routes/users');
 
 var app = express();
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'hbs');
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({ extended: true })); // should this be true or false?
 app.use(session({
   secret : process.env.SESSION_SECRET,
   resave : false,
@@ -28,7 +31,7 @@ app.use(session({
     url : "mongodb://localhost/ga-passport-sessions"
   }),
   cookie : {
-    maxAge : 300000 // 5 minutes
+    maxAge : 300000 // 5 minutes -- should make longer but how long?
   },
   genid : function() {
     return uuid.v4({
