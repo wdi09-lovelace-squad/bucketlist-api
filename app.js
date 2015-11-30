@@ -1,3 +1,4 @@
+// jshint node: true
 'use strict';
 
 var express = require('express');
@@ -28,7 +29,7 @@ app.use(session({
   resave : false,
   saveUninitialized : false,
   store : new MongoStore({
-    url : "mongodb://localhost/ga-passport-sessions"
+    url : "mongodb://localhost/bucketlist"
   }),
   cookie : {
     maxAge : 300000 // 5 minutes -- should make longer but how long?
