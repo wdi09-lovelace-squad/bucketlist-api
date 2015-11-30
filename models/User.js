@@ -1,3 +1,5 @@
+// jshint node: true
+
 'use strict';
 
 var bcrypt = require('bcrypt');
@@ -12,7 +14,8 @@ var userSchema = new Schema({
     unique : true,
     required : true
   },
-  passwordDigest : String
+  passwordDigest : String,
+  list : {type: Array, "default": [] }
 });
 
 userSchema.plugin(uniqueValidator);

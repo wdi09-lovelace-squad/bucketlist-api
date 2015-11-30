@@ -26,8 +26,6 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // should this be true or false?
 
-/* Hiding session functionality
-
 app.use(session({
   secret : process.env.SESSION_SECRET,
   resave : false,
@@ -44,8 +42,6 @@ app.use(session({
     });
   }
 }));
-
-*/
 
 // mount return value of `passport.initialize` invocation on `app`
 app.use(passport.initialize());

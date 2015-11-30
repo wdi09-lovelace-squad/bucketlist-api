@@ -31,7 +31,7 @@ router.route('/signup').
 
 router.route('/doStuff').
   get(ctrl.doStuff.get).
-  put(ctrl.doStuff.put).
+  put(ctrl.doStuff.addToList).
   patch(ctrl.doStuff.patch).
   delete(ctrl.doStuff.delete).
   all(ctrl.doStuff.default);

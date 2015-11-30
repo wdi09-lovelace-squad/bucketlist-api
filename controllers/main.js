@@ -1,4 +1,9 @@
+// jshint node: true
+
 'use strict';
+
+var passport = require('passport');
+var User = require('../models').model('User');
 
 var ctrl = {
     root : {
@@ -22,22 +27,18 @@ var ctrl = {
         ]
     },
     doStuff : {
-        // Reads "Sun Nov 23 2025 14:02:35 GMT-0500 (EST)"
         get : function(req, res) {
             res.json(req.session.lastPutDate || '');
         },
-        // Creates Created??
-        put : function(req, res, next) {
-            var now = new Date(Date.now());
-            req.session.lastPutDate = (now).toString();
-            req.session.save(function(err) {
-                if(err) {
-                    next(err);
-                    return;
-                }
+        // Creates new list items
+        // Accepts params as JSON { venue: venueName, note: userNote }
+        addToList : function(req, res, next) {
+            var objID = req.session.passport.user;
+            User.findByIdAndUpdate(objID, { $push: { list: { venue: req.body.venue, note: req.body.note} } }, { new: true }).exec().then(function(user) {
+            console.log(user.toJSON());
+            }).catch(console.error
+            ).then(res.sendStatus(200));
 
-                res.sendStatus(201);
-            });
         },
         // Updates OK
         patch : function(req, res, next) {
