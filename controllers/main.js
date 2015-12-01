@@ -57,14 +57,29 @@ var ctrl = {
         // check user logged in and body contains venue value
         patch : function(req, res, next) {
             var objID = req.session.passport.user;
-
-        }, // end patch
+            if(objID || !req.body.venue) {
+                var err = new Error("No venue supplied.");
+                return next(err);
+            }
+            function update (objID, field, value) {
+                var modify = {};
+                modify[field] = value;
+                User.findByIdAndUpdate(objID, {
+                    $set: modify
+                }, {
+                    new: true
+                }).exec().then(function (user) {
+                    console.log(user.toJSON());
+                }).catch(console.error).then(res.sendStatus(200));
+            } // end update function
+        }, // end patch function
 
         // Destroy
         'delete' : function(req, res) {
             delete req.session.lastPutDate;
             res.sendStatus(204);
         },
+
         // Index
         'default' : function(err, req, res) {
             res.status(500).
