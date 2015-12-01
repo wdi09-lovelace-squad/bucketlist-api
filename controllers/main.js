@@ -57,21 +57,18 @@ var ctrl = {
         // check user logged in and body contains venue value
         patch : function(req, res, next) {
             var objID = req.session.passport.user;
-            if(objID || !req.body.venue) {
-                var err = new Error("No venue supplied.");
-                return next(err);
-            }
-            function update (objID, field, value) {
-                var modify = {};
-                modify[field] = value;
-                User.findByIdAndUpdate(objID, {
-                    $set: modify
-                }, {
-                    new: true
-                }).exec().then(function (user) {
-                    console.log(user.toJSON());
-                }).catch(console.error).then(res.sendStatus(200));
-            } // end update function
+            User.findByIdAndUpdate(objID, {
+                $set: {
+                    list: {
+                        venue: req.body.venue,
+                        note: req.body.note
+                    }
+                }
+            }, {
+                new: true
+            }).exec().then(function (user) {
+                console.log(user.toJSON());
+            }).catch(console.error).then(res.sendStatus(200));
         }, // end patch function
 
         // Destroy
