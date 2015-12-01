@@ -31,8 +31,10 @@ var ctrl = {
         get : function (req, res) {
             var objID = req.session.passport.user;
             User.findById(objID).exec().then(function (user) {
-                console.log(user.toJSON());
-            }).catch(console.error).then(res.sendStatus(200));
+                console.log(user);
+                res.sendStatus(200);
+                res.json(user);
+            }).catch(console.error);
         },
 
         // Creates new list items
@@ -57,25 +59,35 @@ var ctrl = {
         // check user logged in and body contains venue value
         patch : function(req, res, next) {
             var objID = req.session.passport.user;
+            var venueName = req.body.venue;
+            var note = req.body.note;
             User.findByIdAndUpdate(objID, {
-                $set: {
-                    list: {
-                        venue: req.body.venue,
-                        note: req.body.note
-                    }
+                "list.venueName" : {
+                    $ne : "venueName"
                 }
             }, {
-                new: true
+                $addToSet : {
+                    "list.$.note" : note
+                }
             }).exec().then(function (user) {
                 console.log(user.toJSON());
             }).catch(console.error).then(res.sendStatus(200));
         }, // end patch function
 
-        // Destroy
-        'delete' : function(req, res) {
-            delete req.session.lastPutDate;
-            res.sendStatus(204);
-        },
+        // deletes item from BL, by pulling obj from array
+        trash : function(req, res) {
+            var objID = req.session.passport.user;
+            User.findByIdAndUpdate(objID, {
+                delete: {
+                    list: {
+                        venue: req.body.venue,
+                        note: req.body.note
+                    }
+                }
+            }).exec().then(function (user) {
+                console.log(user.toJSON());
+            }).catch(console.error).then(res.sendStatus(204));
+        }, // end delete
 
         // Index
         'default' : function(err, req, res) {

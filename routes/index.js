@@ -34,7 +34,7 @@ router.route('/doStuff').
   get(ctrl.doStuff.get).
   put(ctrl.doStuff.addToList).
   patch(ctrl.doStuff.patch).
-  delete(ctrl.doStuff.delete).
+  delete(ctrl.doStuff.trash).
   all(ctrl.doStuff.default);
 
 module.exports = router;
