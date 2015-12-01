@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // should this be true or false?
 
 app.use(cors({
-  origin: ['http://localhost:5000'],
+  origin: ['http://localhost:5000', 'null'],
   credentials: true
 }));
 

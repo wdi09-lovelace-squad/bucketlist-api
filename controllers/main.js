@@ -1,5 +1,4 @@
 // jshint node: true
-
 'use strict';
 
 var passport = require('passport');
@@ -26,35 +25,41 @@ var ctrl = {
             }
         ]
     },
+
+    // bucket list methods
     doStuff : {
-        get : function(req, res) {
-            res.json(req.session.lastPutDate || '');
+        get : function (req, res) {
+            var objID = req.session.passport.user;
+            User.findById(objID).exec().then(function (user) {
+                console.log(user.toJSON());
+            }).catch(console.error).then(res.sendStatus(200));
         },
+
         // Creates new list items
         // Accepts params as JSON { venue: venueName, note: userNote }
-        addToList : function(req, res, next) {
+        addToList : function (req, res, next) {
             var objID = req.session.passport.user;
-            User.findByIdAndUpdate(objID, { $push: { list: { venue: req.body.venue, note: req.body.note} } }, { new: true }).exec().then(function(user) {
-            console.log(user.toJSON());
-            }).catch(console.error
-            ).then(res.sendStatus(200));
+            User.findByIdAndUpdate(objID, {
+                $push: {
+                    list: {
+                        venue: req.body.venue,
+                        note: req.body.note
+                    }
+                }
+            }, {
+                new: true
+            }).exec().then(function (user) {
+                console.log(user.toJSON());
+            }).catch(console.error).then(res.sendStatus(200));
+        }, // end addToList
 
-        },
-        // Updates OK
+        // editList
+        // check user logged in and body contains venue value
         patch : function(req, res, next) {
-            try {
-                if(!req.session.lastPutDate) throw new Error("No date!");
-                var date = new Date(req.session.lastPutDate);
-                date.setYear(date.getFullYear() + 10);
-                req.session.lastPutDate = date.toString();
-            } catch(e) {
-                return next(e);
-            }
-            req.session.save(function(err) {
-                if(err) return next(err);  // will skip normal middlewares to first error-handling middleware
-                res.sendStatus(200);
-            });
-        },
+            var objID = req.session.passport.user;
+
+        }, // end patch
+
         // Destroy
         'delete' : function(req, res) {
             delete req.session.lastPutDate;
@@ -70,8 +75,7 @@ var ctrl = {
                     }
                 });
         }
-        // This is no Post
-    }
+    } // end doStuff-bucket list methods
 };
 
 module.exports = ctrl;
