@@ -10,8 +10,8 @@ router.get('/', function(req, res, next) {
   res.send('venues page');
 });
 
-var clientId = 'D3XCQHVESV4KMC2KTYCEKXRYE11U4FZOKPKDLYPZBAZPQE0D';
-var clientSecret = 'TJ1HYBNMZ0MVMA21Z4YVIOT4G3DOALEGFNHLPN4AOY5NPWG5';
+var clientId = process.env.CLIENT_ID;
+var clientSecret = process.env.CLIENT_SECRET;
 
 
 router.post('/', function(req, res, next){
@@ -30,7 +30,6 @@ router.post('/', function(req, res, next){
       console.error(err);
     });
   };
-  console.log(search);
   venues();
 });
 
