@@ -8,6 +8,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // export a mongoose model
 
+var ListEntry = new Schema({
+  venue: String,
+  note: String
+});
+
 var userSchema = new Schema({
   userName : {
     type : String,
@@ -15,7 +20,7 @@ var userSchema = new Schema({
     required : true
   },
   passwordDigest : String,
-  list : {type: Array, "default": [] }
+  list : [ListEntry]
 });
 
 userSchema.plugin(uniqueValidator);

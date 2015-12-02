@@ -32,7 +32,7 @@ var ctrl = {
             var objID = req.session.passport.user;
             User.findById(objID).exec().then(function (user) {
                 console.log(user);
-                res.sendStatus(200);
+                // res.sendStatus(200);
                 res.json(user);
             }).catch(console.error);
         },
@@ -59,18 +59,13 @@ var ctrl = {
         // check user logged in and body contains venue value
         patch : function(req, res, next) {
             var objID = req.session.passport.user;
-            var venueName = req.body.venue;
+            // var venueName = req.body.venue;
             var note = req.body.note;
-            User.findByIdAndUpdate(objID, {
-                "list.venueName" : {
-                    $ne : "venueName"
-                }
-            }, {
-                $addToSet : {
-                    "list.$.note" : note
-                }
+            var venueID = req.body._id;
+            User.update({ _id: objID, 'list._id' : venueID },
+            { '$set': {'list.$.note': note }
             }).exec().then(function (user) {
-                console.log(user.toJSON());
+                console.log(user);
             }).catch(console.error).then(res.sendStatus(200));
         }, // end patch function
 
