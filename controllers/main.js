@@ -61,8 +61,8 @@ var ctrl = {
             var objID = req.session.passport.user;
             // var venueName = req.body.venue;
             var note = req.body.note;
-            var venueID = req.body._id;
-            User.update({ _id: objID, 'list._id' : venueID },
+            var itemID = req.body._id;
+            User.update({ _id: objID, 'list._id' : itemID },
             { '$set': {'list.$.note': note }
             }).exec().then(function (user) {
                 console.log(user);
@@ -72,13 +72,9 @@ var ctrl = {
         // deletes item from BL, by pulling obj from array
         trash : function(req, res) {
             var objID = req.session.passport.user;
+            var itemID = req.body._id;
             User.findByIdAndUpdate(objID, {
-                delete: {
-                    list: {
-                        venue: req.body.venue,
-                        note: req.body.note
-                    }
-                }
+                $pull: { list: {_id: itemID}}
             }).exec().then(function (user) {
                 console.log(user.toJSON());
             }).catch(console.error).then(res.sendStatus(204));
