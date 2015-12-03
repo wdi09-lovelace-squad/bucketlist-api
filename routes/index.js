@@ -3,8 +3,6 @@ var router = express.Router();
 var authCtrl = require('../controllers/auth');
 var ctrl = require('../controllers/main');
 
-mongoose.connect(process.env.MONGOLAB_URI);
-
 /* GET home page. */
 router.get('/', authCtrl.root.get);
 // or ??

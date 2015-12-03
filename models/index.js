@@ -7,6 +7,6 @@ mongoose.Promise = Promise;
 
 mongoose.model('User', require('./User'));
 
-mongoose.connect("mongodb://localhost/bucketlist");
+mongoose.connect(process.env.MONGOLAB_URI);
 
 module.exports = mongoose;
