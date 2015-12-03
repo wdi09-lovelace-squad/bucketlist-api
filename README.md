@@ -29,7 +29,9 @@ As a user, I want to be able to add the places I search to my list.
 As a user, I want to be able to update the note.
 
 - The back end will recieve a call on a route and update a note to the users list.
+- Success equals list item now has a note.
 
 As a user I want to be able to delete items from the list.
 
 - The back end will revieve a call on a route and delete the object (venue and note) from list
+- Success equals item no longer on list.
