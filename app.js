@@ -37,7 +37,7 @@ app.use(session({
   resave : false,
   saveUninitialized : false,
   store : new MongoStore({
-    url : "process.env.MONGOLAB_URI"
+    url : process.env.MONGOLAB_URI
   }),
   cookie : {
     maxAge : 300000 // 5 minutes -- should make longer but how long?
