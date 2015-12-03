@@ -1,3 +1,5 @@
+// jshint node: true
+
 'use strict';
 
 var passport = require('passport');
@@ -15,10 +17,10 @@ module.exports = {
         }
     },
     login : {
-        post : passport.authenticate('local', {
-            successRedirect : '/',
-            failureRedirect : '/'
-        })
+        post : passport.authenticate('local'),
+        all : function(req, res) {
+            res.sendStatus(200);
+        }
     },
     logout : {
         all : function(req, res, next) {

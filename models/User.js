@@ -1,3 +1,5 @@
+// jshint node: true
+
 'use strict';
 
 var bcrypt = require('bcrypt');
@@ -6,13 +8,20 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 // export a mongoose model
 
+var ListEntry = new Schema({
+  venue: String,
+  note: { type: String, default: '... and do what here?' },
+  status: { type: String, default: 'In Progress' }
+});
+
 var userSchema = new Schema({
   userName : {
     type : String,
     unique : true,
     required : true
   },
-  passwordDigest : String
+  passwordDigest : String,
+  list : [ListEntry]
 });
 
 userSchema.plugin(uniqueValidator);

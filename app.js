@@ -1,3 +1,4 @@
+// jshint node: true
 'use strict';
 
 var express = require('express');
@@ -10,9 +11,11 @@ var MongoStore = require('connect-mongo')(session);
 process.env.SESSION_SECRET || require('dotenv').load();
 // require passport config file
 var passport = require('./lib/passport');
+var cors = require('cors');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var venues = require('./routes/venues');
 
 var app = express();
 
@@ -23,12 +26,18 @@ app.set('view engine', 'hbs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // should this be true or false?
+
+app.use(cors({
+  origin: ['http://localhost:5000', 'null'],
+  credentials: true
+}));
+
 app.use(session({
   secret : process.env.SESSION_SECRET,
   resave : false,
   saveUninitialized : false,
   store : new MongoStore({
-    url : "mongodb://localhost/ga-passport-sessions"
+    url : "mongodb://localhost/bucketlist"
   }),
   cookie : {
     maxAge : 300000 // 5 minutes -- should make longer but how long?
@@ -48,6 +57,7 @@ app.use(passport.session());
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/venues', venues);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
