@@ -10,7 +10,8 @@ var Schema = mongoose.Schema;
 
 var ListEntry = new Schema({
   venue: String,
-  note: String
+  note: { type: String, default: '... and do what here?' },
+  status: { type: String, default: 'In Progress' }
 });
 
 var userSchema = new Schema({
