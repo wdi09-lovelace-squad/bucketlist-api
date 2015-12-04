@@ -40,7 +40,7 @@ app.use(session({
     url : "mongodb://localhost/bucketlist"
   }),
   cookie : {
-    maxAge : 300000 // 5 minutes -- should make longer but how long?
+    maxAge : 1800000 // 30 minutes
   },
   genid : function() {
     return uuid.v4({
