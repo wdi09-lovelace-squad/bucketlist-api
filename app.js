@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true })); // should this be true or false?
 
 app.use(cors({
-  origin: ['http://localhost:5000', 'null'],
+  origin: ['http://localhost:5000', 'http://wdi09-lovelace-squad.github.io'],
   credentials: true
 }));
 
@@ -37,7 +37,7 @@ app.use(session({
   resave : false,
   saveUninitialized : false,
   store : new MongoStore({
-    url : "mongodb://localhost/bucketlist"
+    url : process.env.MONGOLAB_URI
   }),
   cookie : {
     maxAge : 1800000 // 30 minutes

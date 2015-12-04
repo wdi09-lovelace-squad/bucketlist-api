@@ -14,6 +14,7 @@ router.get('/', authCtrl.root.get);
  *  a register route **not using passport**
  *
  */
+
 router.route('/login').
     get(authCtrl.deny).
     post(authCtrl.login.post).

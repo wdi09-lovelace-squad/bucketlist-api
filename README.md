@@ -1,16 +1,19 @@
 # BucketList Back-End
 
-### Team
+Front End Deployment: http://wdi09-lovelace-squad.github.io/bucketlist/
+Front End Repo: https://github.com/wdi09-lovelace-squad/bucketlist
+
+## Team
 
 * Kelvin Ma - Project Lead
 * Allie Sebastian - Back End Lead
 * Wil Trahan - Front End Lead
 
-### Project Details
+Project Prompt: https://github.com/ga-wdi-boston/express-group-project
 
 Besides finishing WDI, you surely have one or two things you'd love to do with your life. Let's get 'em on paper! You could integrate with a third-party location-based API to allow users to search for a location or venue to add to their bucket list items.
 
-Reach Goal: Add social features to your site, such as following other users. Allow users to make certain list items public, but default to private.
+**Reach Goal**: Add social features to your site, such as following other users. Allow users to make certain list items public, but default to private.
 
 ### Generate a New Express App
 
